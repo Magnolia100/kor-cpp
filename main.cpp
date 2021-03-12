@@ -1,4 +1,5 @@
 #include <windows.h>
+#include "func/save.h"
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam);
 
@@ -9,7 +10,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpszCmdL
     WNDCLASS WndClass;
     WndClass.style = CS_HREDRAW | CS_VREDRAW;
     WndClass.lpfnWndProc = WndProc;
-    WndClass.cbClsExtra = 0;
+	WndClass.cbClsExtra = 0;
     WndClass.cbWndExtra = 0;
 	WndClass.hInstance = hInstance;
 	WndClass.hIcon = LoadIcon(NULL, IDI_APPLICATION);
@@ -32,8 +33,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpszCmdL
  	}
  	return msg.wParam;
 }
-
-
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
 {
@@ -67,10 +66,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
   			if(wParam == VK_BACK)
   			{
   				if(count > 0) count--;
-				else if(line > 0)
-				{
-					count = strline[--line];
-				}
+				else if(line > 0) count = strline[--line];
 			}
   		  	else if(wParam == VK_RETURN) 
   			{
@@ -86,6 +82,9 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
 			InvalidateRgn(hwnd, NULL, TRUE);
   			break;
  		case WM_DESTROY:
+ 			char_two str_t;
+ 			for(i=0;i<10;i++) strcpy(str_t.str[i],str[i]);
+ 			Save(str_t);
   			HideCaret(hwnd);
   			DestroyCaret();
   			PostQuitMessage(0);
