@@ -1,5 +1,5 @@
 #include <windows.h>
-#include "func/save.h"
+#include "save.h"
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam);
 
